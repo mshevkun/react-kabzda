@@ -1,42 +1,24 @@
 import "./App.css";
+import { Rating } from "./components/Rating";
+import { Accordion } from "./components/Accordion";
 
 function App() {
   return (
     <div>
-      This is App component
-      <Rating />
-      <Accordion />
+      <AppTitle title={"AppTitle"} />
+      <AppTitle title={"AppTitle2"} />
+      <Rating value={3} />
+      <Accordion titleValue={"Accordion Title"} collapsed={true} />
+      <Accordion titleValue={"Accordion Title2"} collapsed={false}/>
+      <Rating value={4} />
     </div>
   );
 }
 
-function Rating() {
-  return (
-    <div>
-      <Star />
-      <Star />
-      <Star />
-      <Star />
-      <Star />
-    </div>
-  );
-}
+type AppTitlePropsType = { title: string };
 
-function Accordion() {
-  return (
-    <div>
-      <h3>Menu</h3>
-      <ul>
-        <li>1</li>
-        <li>2</li>
-        <li>3</li>
-      </ul>
-    </div>
-  );
-}
-
-function Star() {
-  return <span>&#9733;</span>;
+function AppTitle({ title }: AppTitlePropsType) {
+  return <h1>{title}</h1>;
 }
 
 export default App;
