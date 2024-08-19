@@ -1,23 +1,61 @@
-type RatingPropsType = { value: 0 | 1 | 2 | 3 | 4 | 5 };
+import { useState } from "react";
 
-export function Rating({ value }: RatingPropsType) {
-  const selectedStars = Array(value).fill(null); // Create an array of length 'value' filled with null values
-  const notSelectedStars = Array(5 - value).fill(null); // Create an array of length 'value' filled with null values
+export function UncontrolledRating() {
+  let [starsCount, setStarsCount] = useState(0);
   return (
     <div>
-      {selectedStars.map((_, index) => (
-        <Star key={index} selected={true} />
-      ))}
-
-      {notSelectedStars.map((_, index) => (
-        <Star key={index} selected={false} />
-      ))}
+      <Star
+        selected={starsCount > 0}
+        setUniqueCount={() => {
+          setStarsCount(1);
+        }}
+      />
+      <Star
+        selected={starsCount > 1}
+        setUniqueCount={() => {
+          setStarsCount(2);
+        }}
+      />
+      <Star
+        selected={starsCount > 2}
+        setUniqueCount={() => {
+          setStarsCount(3);
+        }}
+      />
+      <Star
+        selected={starsCount > 3}
+        setUniqueCount={() => {
+          setStarsCount(4);
+        }}
+      />
+      <Star
+        selected={starsCount > 4}
+        setUniqueCount={() => {
+          setStarsCount(5);
+        }}
+      />
     </div>
   );
 }
 
-type StarPropsType = { selected: boolean };
+type StarPropsType = { selected: boolean; setUniqueCount: () => void };
 
-function Star({ selected }: StarPropsType) {
-  return selected ? <span>&#9733;</span> : <span>&#9734;</span>;
+function Star({ selected, setUniqueCount }: StarPropsType) {
+  return selected ? (
+    <span
+      onClick={() => {
+        setUniqueCount();
+      }}
+    >
+      &#9733;
+    </span>
+  ) : (
+    <span
+      onClick={() => {
+        setUniqueCount();
+      }}
+    >
+      &#9734;
+    </span>
+  );
 }

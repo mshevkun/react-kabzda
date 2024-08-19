@@ -1,18 +1,32 @@
-type AccordionPropsType = { titleValue: string; collapsed: boolean };
+import { useState } from "react";
 
-export function Accordion({ titleValue, collapsed }: AccordionPropsType) {
+type AccordionPropsType = { titleValue: string };
+
+export function UncontrolledAccordion({ titleValue }: AccordionPropsType) {
+  let [collapse, setCollapse] = useState(false);
   return (
     <>
-      <AccordionTitle title={titleValue} />
-      {collapsed ? <AccordionBody /> : null}
+      <AccordionTitle
+        title={titleValue}
+        changeCollapse={() => setCollapse(!collapse)}
+      />
+      {collapse && <AccordionBody />}
     </>
   );
 }
 
-type AccordionTitlePropsType = { title: string };
+type AccordionTitlePropsType = { title: string; changeCollapse: () => void };
 
-function AccordionTitle({ title }: AccordionTitlePropsType) {
-  return <h3>{title}</h3>;
+function AccordionTitle({ title, changeCollapse }: AccordionTitlePropsType) {
+  return (
+    <h3
+      onClick={() => {
+        changeCollapse();
+      }}
+    >
+      {title}
+    </h3>
+  );
 }
 
 function AccordionBody() {
